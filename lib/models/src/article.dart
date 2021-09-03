@@ -3,17 +3,16 @@ import 'package:flutter_simple_shopify/models/src/product.dart';
 class Articles {
   final List<Article> articleList;
 
-  Articles({this.articleList});
+  Articles({required this.articleList});
 
-  static Articles fromJson(Map<String, dynamic> json){
-    return Articles(
-        articleList: _getArticleList(json ?? const {})
-    );
+  static Articles fromJson(Map<String, dynamic>? json) {
+    return Articles(articleList: _getArticleList(json ?? const {}));
   }
 
   static _getArticleList(Map<String, dynamic> json) {
     List<Article> articleList = [];
-    json['edges']?.forEach((article) => articleList.add(Article.fromJson(article ?? const {})) );
+    json['edges']?.forEach(
+        (article) => articleList.add(Article.fromJson(article ?? const {})));
     return articleList;
   }
 }
@@ -33,33 +32,50 @@ class Article {
   final String title;
   final String url;
 
-  Article({this.author, this.commentList, this.content, this.contentHtml, this.excerpt, this.excerptHtml, this.handle, this.id, this.image, this.publishedAt, this.tags, this.title, this.url});
+  Article(
+      {required this.author,
+      required this.commentList,
+      required this.content,
+      required this.contentHtml,
+      required this.excerpt,
+      required this.excerptHtml,
+      required this.handle,
+      required this.id,
+      required this.image,
+      required this.publishedAt,
+      required this.tags,
+      required this.title,
+      required this.url});
 
-  static Article fromJson(Map<String, dynamic> json){
+  static Article fromJson(Map<String, dynamic> json) {
     return Article(
-      author: AuthorV2.fromJson(((json['node'] ?? const {})['authorV2']) ?? const {}),
-      commentList: _getCommentList((json['node'] ?? const {})['comments'] ?? const {}),
+      author: AuthorV2.fromJson(
+          ((json['node'] ?? const {})['authorV2']) ?? const {}),
+      commentList:
+          _getCommentList((json['node'] ?? const {})['comments'] ?? const {}),
       content: (json['node'] ?? const {})['content'],
       contentHtml: (json['node'] ?? const {})['contentHtml'],
       excerpt: (json['node'] ?? const {})['excerpt'],
       excerptHtml: (json['node'] ?? const {})['excerptHtml'],
       handle: (json['node'] ?? const {})['handle'],
       id: (json['node'] ?? const {})['id'],
-      image: ShopifyImage.fromJson((json['node'] ?? const {})['image'] ?? const {}),
+      image: ShopifyImage.fromJson(
+          (json['node'] ?? const {})['image'] ?? const {}),
       publishedAt: (json['node'] ?? const {})['publishedAt'],
-      tags: _getTagsList(json ?? const {}),
+      tags: _getTagsList(json),
       title: (json['node'] ?? const {})['title'],
       url: (json['node'] ?? const {})['url'],
     );
   }
 
-  static _getCommentList(Map<String, dynamic> json){
+  static _getCommentList(Map<String, dynamic> json) {
     List<Comment> commentList = [];
-    json['edges']?.forEach((comment) => commentList.add(Comment.fromJson(comment ?? const {})));
+    json['edges']?.forEach(
+        (comment) => commentList.add(Comment.fromJson(comment ?? const {})));
     return commentList;
   }
 
-  static _getTagsList(Map<String, dynamic> json){
+  static _getTagsList(Map<String, dynamic> json) {
     List<String> tagsList = [];
     (json['node'] ?? const {})['tags']?.forEach((tag) => tagsList.add(tag));
     return tagsList;
@@ -73,16 +89,20 @@ class Comment {
   final String contentHtml;
   final String id;
 
-  Comment({this.email, this.name, this.content, this.contentHtml, this.id});
+  Comment(
+      {required this.email,
+      required this.name,
+      required this.content,
+      required this.contentHtml,
+      required this.id});
 
-  static Comment fromJson(Map<String, dynamic> json){
+  static Comment fromJson(Map<String, dynamic> json) {
     return Comment(
         email: ((json['node'] ?? const {})['author'] ?? const {})['email'],
         name: ((json['node'] ?? const {})['author'] ?? const {})['name'],
         content: (json['node'] ?? const {})['content'],
         contentHtml: (json['node'] ?? const {})['contentHtml'],
-        id: (json['node'] ?? const {})['id']
-    );
+        id: (json['node'] ?? const {})['id']);
   }
 }
 
@@ -93,17 +113,19 @@ class AuthorV2 {
   final String lastName;
   final String name;
 
-  AuthorV2({this.bio, this.email, this.firstName, this.lastName, this.name});
+  AuthorV2(
+      {required this.bio,
+      required this.email,
+      required this.firstName,
+      required this.lastName,
+      required this.name});
 
-  static AuthorV2 fromJson(Map<String, dynamic> json){
+  static AuthorV2 fromJson(Map<String, dynamic> json) {
     return AuthorV2(
         bio: json['bio'],
         email: json['email'],
         firstName: json['firstName'],
         lastName: json['lastName'],
-        name: json['name']
-    );
+        name: json['name']);
   }
-
-
 }

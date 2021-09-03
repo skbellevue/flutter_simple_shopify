@@ -3,8 +3,8 @@ class LocationInput {
   final double longitude;
 
   const LocationInput({
-    this.latitude,
-    this.longitude,
+    required this.latitude,
+    required this.longitude,
   });
 
   Map<String, dynamic> toJson() {
@@ -21,9 +21,9 @@ class AddressPrediction {
   final List<MatchedSubstring> matchedSubstrings;
 
   const AddressPrediction({
-    this.addressId,
-    this.description,
-    this.matchedSubstrings,
+    required this.addressId,
+    required this.description,
+    required this.matchedSubstrings,
   });
 
   static AddressPrediction fromJson(Map<String, dynamic> json) {
@@ -42,8 +42,8 @@ class MatchedSubstring {
   final int offset;
 
   const MatchedSubstring({
-    this.length,
-    this.offset,
+    required this.length,
+    required this.offset,
   });
 
   static MatchedSubstring fromJson(Map<String, dynamic> json) {
@@ -55,32 +55,32 @@ class MatchedSubstring {
 }
 
 class AddressDetails {
-  final String address1;
-  final String address2;
-  final String city;
-  final String company;
-  final String completionService;
-  final String country;
-  final String countryCode;
-  final double latitude;
-  final double longitude;
-  final String province;
-  final String provinceCode;
-  final String zip;
+  final String? address1;
+  final String? address2;
+  final String? city;
+  final String? company;
+  final String? completionService;
+  final String? country;
+  final String? countryCode;
+  final double? latitude;
+  final double? longitude;
+  final String? province;
+  final String? provinceCode;
+  final String? zip;
 
   const AddressDetails({
-    this.address1,
-    this.address2,
-    this.city,
-    this.company,
-    this.completionService,
-    this.country,
-    this.countryCode,
-    this.latitude,
-    this.longitude,
-    this.province,
-    this.provinceCode,
-    this.zip,
+    required this.address1,
+    required this.address2,
+    required this.city,
+    required this.company,
+    required this.completionService,
+    required this.country,
+    required this.countryCode,
+    required this.latitude,
+    required this.longitude,
+    required this.province,
+    required this.provinceCode,
+    required this.zip,
   });
 
   static AddressDetails fromJson(Map<String, dynamic> json) {

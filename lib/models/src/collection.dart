@@ -4,11 +4,11 @@ class Collections {
   final List<Collection> collectionList;
   final bool hasNextPage;
 
-  Collections({this.collectionList, this.hasNextPage});
+  Collections({required this.collectionList, required this.hasNextPage});
 
   static Collections fromJson(Map<String, dynamic> json) {
     return Collections(
-        collectionList: _getCollectionList(json ?? const {}),
+        collectionList: _getCollectionList(json),
         hasNextPage: (json['pageInfo'] ?? const {})['hasNextPage']);
   }
 
@@ -32,15 +32,15 @@ class Collection {
   final String cursor;
 
   Collection(
-      {this.title,
-      this.description,
-      this.descriptionHtml,
-      this.handle,
-      this.id,
-      this.updatedAt,
-      this.image,
-      this.products,
-      this.cursor});
+      {required this.title,
+      required this.description,
+      required this.descriptionHtml,
+      required this.handle,
+      required this.id,
+      required this.updatedAt,
+      required this.image,
+      required this.products,
+      required this.cursor});
 
   static Collection fromJson(Map<String, dynamic> json) {
     return Collection(
