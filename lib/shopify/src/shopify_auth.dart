@@ -70,17 +70,17 @@ class ShopifyAuth with ShopifyError {
     );
     final shopifyUser = ShopifyUser.fromJson(
         (result.data?['customerCreate'] ?? const {})['customer']);
-    final String customerAccessToken = await _createAccessToken(
-      email,
-      password,
-    );
-    await _setShopifyUser(
-      customerAccessToken,
-      _shopifyUser[ShopifyConfig.storeUrl]!,
-    );
-    if (deleteThisPartOfCache) {
-      _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
-    }
+    // final String customerAccessToken = await _createAccessToken(
+    //   email,
+    //   password,
+    // );
+    // await _setShopifyUser(
+    //   customerAccessToken,
+    //   _shopifyUser[ShopifyConfig.storeUrl]!,
+    // );
+    // if (deleteThisPartOfCache) {
+    //   _graphQLClient.cache.writeQuery(_options.asRequest, data: {});
+    // }
     return shopifyUser;
   }
 
@@ -178,6 +178,9 @@ class ShopifyAuth with ShopifyError {
     } else if (await currentCustomerAccessToken != null) {
       final QueryResult result = (await _graphQLClient.query(_getCustomer));
       checkForError(result);
+      if (result.data == null || result.data?["customer"] == null) {
+        return null;
+      }
       ShopifyUser user = ShopifyUser.fromJson(
           (result.data ?? const {})['customer'] ?? const {});
       return user;
