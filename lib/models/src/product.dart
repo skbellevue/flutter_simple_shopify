@@ -30,7 +30,7 @@ class Product {
   final List<ProductVariant> productVariants;
   final String descriptionHtml;
   final String handle;
-  final String onlineStoreUrl;
+  final String? onlineStoreUrl;
   final String productType;
   final String publishedAt;
   final List<String> tags;
@@ -88,9 +88,10 @@ class Product {
 
   static List<ProductVariant> _getProductVariants(Map<String, dynamic> json) {
     return (((json['node'] ?? const {})['variants'] ?? const {})['edges']
-            as List)
-        .map((v) => ProductVariant.fromJson(v ?? const {}))
-        .toList();
+                as List?)
+            ?.map((v) => ProductVariant.fromJson(v ?? const {}))
+            .toList() ??
+        [];
   }
 
   static List<Option> _getOptionList(Map<String, dynamic> json) {
@@ -109,17 +110,20 @@ class Product {
 
   static List<AssociatedCollections> _getCollectionList(
       Map<String, dynamic> json) {
-    return (((json['node'] ?? const {})['collections'] ?? const {})['edges']
-            as List)
-        .map((v) => AssociatedCollections.fromJson(v ?? const {}))
-        .toList();
+    List<AssociatedCollections> coll = [];
+    json['node']?['collections']?['edges']?.forEach(
+        (v) => coll.add(AssociatedCollections.fromJson(v ?? const {})));
+    return coll;
+    // return (((json['node'] ?? const {})['collections'] ?? const {})['edges'] ??
+    //         [])
+    //     .map((v) => AssociatedCollections.fromJson(v ?? const {}))
+    //     .toList();
   }
 
-  static _getImageList(Map<String, dynamic>? json) {
+  static _getImageList(Map<String, dynamic> json) {
     List<ShopifyImage> imageList = [];
-    if (json != null && json['edges'] != null)
-      json['edges'].forEach((image) =>
-          imageList.add(ShopifyImage.fromJson(image['node'] ?? const {})));
+    json['edges']?.forEach((image) =>
+        imageList.add(ShopifyImage.fromJson(image['node'] ?? const {})));
     return imageList;
   }
 
@@ -132,8 +136,8 @@ class Product {
 }
 
 class AssociatedCollections {
-  final String description;
-  final String descriptionHtml;
+  final String? description;
+  final String? descriptionHtml;
   final String id;
   final String handle;
   final String updatedAt;
@@ -159,18 +163,18 @@ class AssociatedCollections {
 }
 
 class ShopifyImage {
-  final String altText;
-  final String originalSource;
-  final String id;
+  final String? altText;
+  final String? originalSource;
+  final String? id;
 
   const ShopifyImage(
       {required this.altText, required this.originalSource, required this.id});
 
-  static ShopifyImage fromJson(Map<String, dynamic> json) {
+  static ShopifyImage fromJson(Map<String, dynamic>? json) {
     return ShopifyImage(
-        altText: json['altText'],
-        originalSource: json['originalSrc'],
-        id: json['id']);
+        altText: json?['altText'],
+        originalSource: json?['originalSrc'],
+        id: json?['id']);
   }
 }
 
@@ -178,13 +182,13 @@ class ProductVariant {
   final PriceV2 price;
   final String title;
   final ShopifyImage image;
-  final PriceV2 compareAtPrice;
+  final PriceV2? compareAtPrice;
   final double weight;
   final String weightUnit;
   final bool availableForSale;
-  final String sku;
+  final String? sku;
   final bool requiresShipping;
-  final String id;
+  final String? id;
   final int quantityAvailable;
   final PriceV2 unitPrice;
   final UnitPriceMeasurement unitPriceMeasurement;
@@ -348,7 +352,7 @@ class PriceV2 {
       case "USD":
         {
           currencyString =
-              '${_simpleCurrencySymbols[json['currencyCode']]} $formattedPrice';
+              '${_simpleCurrencySymbols[json['currencyCode']]}$formattedPrice';
         }
         break;
 
@@ -527,11 +531,11 @@ class PriceV2 {
 }
 
 class UnitPriceMeasurement {
-  final String measuredType;
-  final String quantityUnit;
-  final double quantityValue;
-  final String referenceUnit;
-  final int referenceValue;
+  final String? measuredType;
+  final String? quantityUnit;
+  final double? quantityValue;
+  final String? referenceUnit;
+  final int? referenceValue;
 
   UnitPriceMeasurement({
     required this.measuredType,

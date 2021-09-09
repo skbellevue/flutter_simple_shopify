@@ -28,9 +28,9 @@ class AddressPrediction {
 
   static AddressPrediction fromJson(Map<String, dynamic> json) {
     return AddressPrediction(
-      addressId: json['addressId'],
-      description: json['description'],
-      matchedSubstrings: (json['matchedSubstrings'] as List)
+      addressId: json['addressId'] ?? "",
+      description: json['description'] ?? "",
+      matchedSubstrings: ((json['matchedSubstrings'] as List?) ?? [])
           .map((e) => MatchedSubstring.fromJson(e))
           .toList(),
     );
@@ -48,8 +48,8 @@ class MatchedSubstring {
 
   static MatchedSubstring fromJson(Map<String, dynamic> json) {
     return MatchedSubstring(
-      length: json['length'],
-      offset: json['offset'],
+      length: json['length'] ?? 0,
+      offset: json['offset'] ?? 0,
     );
   }
 }

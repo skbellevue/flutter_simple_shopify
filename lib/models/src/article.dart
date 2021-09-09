@@ -83,11 +83,11 @@ class Article {
 }
 
 class Comment {
-  final String email;
-  final String name;
-  final String content;
-  final String contentHtml;
-  final String id;
+  final String? email;
+  final String? name;
+  final String? content;
+  final String? contentHtml;
+  final String? id;
 
   Comment(
       {required this.email,
@@ -107,11 +107,11 @@ class Comment {
 }
 
 class AuthorV2 {
-  final String bio;
-  final String email;
-  final String firstName;
-  final String lastName;
-  final String name;
+  final String? bio;
+  final String? email;
+  final String? firstName;
+  final String? lastName;
+  final String? name;
 
   AuthorV2(
       {required this.bio,

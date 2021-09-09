@@ -81,6 +81,7 @@ query($id : ID!, $cursor : String, $sortKey: ProductCollectionSortKeys){
                     name
                     value
                   }
+                  available
                   availableForSale
                   id
                   quantityAvailable

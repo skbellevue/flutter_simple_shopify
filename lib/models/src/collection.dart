@@ -29,7 +29,7 @@ class Collection {
   final String updatedAt;
   final ShopifyImage image;
   final Products products;
-  final String cursor;
+  final String? cursor;
 
   Collection(
       {required this.title,
@@ -45,8 +45,8 @@ class Collection {
   static Collection fromJson(Map<String, dynamic> json) {
     return Collection(
       title: (json['node'] ?? const {})['title'],
-      description: (json['node'] ?? const {})['description'],
-      descriptionHtml: (json['node'] ?? const {})['descriptionHtml'],
+      description: (json['node'] ?? const {})['description'] ?? "",
+      descriptionHtml: (json['node'] ?? const {})['descriptionHtml'] ?? "",
       handle: (json['node'] ?? const {})['handle'],
       id: (json['node'] ?? const {})['id'],
       updatedAt: (json['node'] ?? const {})['updatedAt'],
